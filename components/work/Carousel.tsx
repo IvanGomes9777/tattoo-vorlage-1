@@ -64,9 +64,9 @@ function Cards({
   );
 
   const N = items.length;
-  const STEP = 0.62; // Winkelabstand pro Karte (rad)
-  const RADIUS = 4.2;
-  const SPREAD = 3.4;
+  const STEP = 0.6; // Winkelabstand pro Karte (rad)
+  const RADIUS = 5.5;
+  const SPREAD = 4.6;
 
   useFrame(() => {
     // Sanftes Einrasten auf Ziel, wenn nicht gezogen wird
@@ -112,7 +112,7 @@ function Cards({
             refs.current[i] = el;
           }}
         >
-          <planeGeometry args={[2, 2.5]} />
+          <planeGeometry args={[3.2, 4]} />
           <meshBasicMaterial
             map={textures[i]}
             transparent
@@ -162,7 +162,7 @@ export default function Carousel({
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 6], fov: 42 }}
+      camera={{ position: [0, 0, 6.5], fov: 50 }}
       dpr={[1, 1.75]}
       gl={{ antialias: true, alpha: true }}
       onCreated={() => setReady(true)}
