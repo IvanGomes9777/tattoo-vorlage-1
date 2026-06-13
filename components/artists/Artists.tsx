@@ -30,7 +30,7 @@ export function Artists() {
   return (
     <section
       id="artists"
-      className="relative flex h-screen flex-col overflow-hidden border-t border-line bg-obsidian px-6 py-12 md:px-10 md:py-16"
+      className="relative flex flex-col border-t border-line bg-obsidian px-6 py-14 md:h-screen md:overflow-hidden md:px-10 md:py-16"
     >
       <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
         <div>
@@ -48,11 +48,11 @@ export function Artists() {
       </div>
 
       {/* Split Duo */}
-      <div className="flex min-h-0 flex-1 flex-col gap-3 md:flex-row">
+      <div className="flex flex-col gap-3 md:min-h-0 md:flex-1 md:flex-row">
         {ARTISTS.map((a) => (
           <article
             key={a.name}
-            className="group relative flex-1 overflow-hidden transition-[flex] duration-700 ease-[var(--ease-quart)] md:hover:flex-[1.7]"
+            className="group relative h-[62vh] overflow-hidden transition-[flex] duration-700 ease-[var(--ease-quart)] md:h-auto md:flex-1 md:hover:flex-[1.7]"
           >
             <Image
               src={a.src}
