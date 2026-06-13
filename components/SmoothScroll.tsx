@@ -2,14 +2,18 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Globales Smooth-Scrolling via Lenis.
- * Wird einmal im Root-Layout gemountet und treibt später auch GSAP ScrollTrigger.
+ * Globales Smooth-Scrolling via Lenis, sauber mit GSAP ScrollTrigger verdrahtet:
+ * Lenis treibt den GSAP-Ticker, ScrollTrigger wird bei jedem Lenis-Scroll
+ * aktualisiert. So bleiben Scroll-Animationen synchron zum smoothen Scroll.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    // Reduced-Motion-Nutzer:innen bekommen natives Scrolling
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -21,15 +25,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       smoothWheel: true,
     });
 
-    let rafId: number;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
+
+    const update = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(update);
       lenis.destroy();
     };
   }, []);
