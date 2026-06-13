@@ -40,8 +40,8 @@ Emojis im UI. Deutsch, geduzt.
   möglicher Tell — hier bewusst als Dark-Mode-Textfarbe, nicht als Cream-BG.)
 
 ## Type
-- Display/Body: **Space Grotesk**
-- Mono/Labels: **JetBrains Mono**
+- Display/Body: **Bricolage Grotesque**
+- Mono/Labels: **Spline Sans Mono**
 - Kontrast-Achse: Grotesk + Mono (nicht zwei ähnliche Sans).
 
 ## Components / Patterns
