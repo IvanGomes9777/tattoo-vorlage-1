@@ -5,12 +5,20 @@ import { ProcessTimeline } from "@/components/demo/ProcessTimeline";
 import { ProcessStepper } from "@/components/demo/ProcessStepper";
 import { ProcessSticky } from "@/components/demo/ProcessSticky";
 import { ProcessAccordion } from "@/components/demo/ProcessAccordion";
+import { ProcessHScroll } from "@/components/demo/ProcessHScroll";
+import { ProcessHoverIndex } from "@/components/demo/ProcessHoverIndex";
+import { ProcessZigzag } from "@/components/demo/ProcessZigzag";
+import { ProcessFullscreen } from "@/components/demo/ProcessFullscreen";
 
 const TABS = [
   { key: "A", label: "A — Vertical Timeline" },
   { key: "B", label: "B — Horizontal Stepper" },
   { key: "C", label: "C — Sticky Pinned" },
   { key: "D", label: "D — Accordion" },
+  { key: "E", label: "E — Horizontal Scroll" },
+  { key: "F", label: "F — Hover Index" },
+  { key: "G", label: "G — Zigzag Path" },
+  { key: "H", label: "H — Fullscreen Steps" },
 ] as const;
 
 export default function AblaufOptionen() {
@@ -39,19 +47,15 @@ export default function AblaufOptionen() {
         </div>
       </div>
 
-      <p className="px-6 pt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-bone-dim md:px-10">
-        {tab === "C"
-          ? "↓ scrollen — Nummer links bleibt stehen & wechselt"
-          : tab === "D"
-            ? "Schritte anklicken → Detail klappt auf"
-            : "6 Schritte: Anfrage → Aftercare"}
-      </p>
-
       <div>
         {tab === "A" && <ProcessTimeline />}
         {tab === "B" && <ProcessStepper />}
         {tab === "C" && <ProcessSticky />}
         {tab === "D" && <ProcessAccordion />}
+        {tab === "E" && <ProcessHScroll />}
+        {tab === "F" && <ProcessHoverIndex />}
+        {tab === "G" && <ProcessZigzag />}
+        {tab === "H" && <ProcessFullscreen />}
       </div>
     </main>
   );
