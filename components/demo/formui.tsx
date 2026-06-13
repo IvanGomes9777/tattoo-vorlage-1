@@ -19,7 +19,7 @@ export function Field({
 }
 
 const base =
-  "w-full bg-transparent border-b border-line py-3 text-bone placeholder-bone-dim/60 outline-none transition-colors focus:border-bone";
+  "w-full bg-transparent border-b border-line py-3 text-bone placeholder-bone-dim/60 outline-none transition-all duration-300 ease-[var(--ease-out-expo)] focus:border-bone focus:shadow-[0_6px_18px_-12px_rgba(236,232,225,0.5)]";
 
 export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={base} />;

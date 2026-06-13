@@ -70,11 +70,25 @@ export function Contact() {
 
       {/* Formular oder Erfolgsmeldung */}
       {state.status === "success" ? (
-        <div className="flex flex-col items-start justify-center gap-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
-            ✓ Gesendet
+        <div className="flex flex-col items-start justify-center gap-6">
+          <span className="seal-in grid h-16 w-16 place-items-center rounded-full border border-bone text-bone">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-7 w-7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path className="draw-check" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <p className="fade-in font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
+            Gesendet
           </p>
-          <p className="max-w-[36ch] font-display text-2xl leading-snug text-bone">
+          <p className="fade-in max-w-[36ch] font-display text-2xl leading-snug text-bone">
             {state.message}
           </p>
         </div>

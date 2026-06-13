@@ -31,6 +31,8 @@ export default function RootLayout({
     <html lang="de" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        {/* Cinematic-Film-Grain über der ganzen Seite (rein dekorativ). */}
+        <div className="grain" aria-hidden />
       </body>
     </html>
   );

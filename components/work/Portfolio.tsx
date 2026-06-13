@@ -62,7 +62,9 @@ export function Portfolio() {
         {WORKS.map((item, idx) => (
           <div
             key={item.src}
-            className="absolute inset-0 transition-opacity duration-700 ease-[var(--ease-quart)]"
+            className={`absolute inset-0 transition-opacity duration-700 ease-[var(--ease-quart)] ${
+              idx === i ? "ken-burns" : ""
+            }`}
             style={{ opacity: idx === i ? 1 : 0 }}
           >
             <Image
@@ -106,7 +108,7 @@ export function Portfolio() {
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim">
               {w.artist} · {w.duration}
             </p>
-            <h2 className="font-display text-[clamp(3rem,12vw,10rem)] font-medium leading-[0.82] tracking-[-0.03em] text-bone">
+            <h2 className="wipe-up font-display text-[clamp(3rem,12vw,10rem)] font-medium leading-[0.82] tracking-[-0.03em] text-bone">
               {w.style}
             </h2>
             <p className="mt-4 font-display text-xl text-bone-dim md:text-2xl">

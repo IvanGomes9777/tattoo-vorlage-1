@@ -72,7 +72,7 @@ export function Artists() {
                 alt={`${a.name} — ${a.specialty}`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-top"
+                className="object-cover object-top transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] md:group-hover:scale-[1.06]"
               />
             </Reveal>
             <div className="absolute inset-0 bg-obsidian/45 transition-colors duration-500 group-hover:bg-obsidian/25" />
@@ -95,7 +95,10 @@ export function Artists() {
                 href="#contact"
                 className="mt-5 inline-block max-h-10 overflow-hidden border-b border-bone pb-1 font-mono text-[11px] uppercase tracking-[0.2em] text-bone opacity-100 transition-all duration-500 md:max-h-0 md:opacity-0 md:group-hover:max-h-10 md:group-hover:opacity-100"
               >
-                Bei {a.name} anfragen →
+                Bei {a.name} anfragen{" "}
+                <span className="inline-block transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1">
+                  →
+                </span>
               </a>
             </Reveal>
           </article>
