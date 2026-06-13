@@ -82,7 +82,7 @@ export function Contact() {
           </div>
           <Field label="Deine Idee"><Textarea name="idea" placeholder="Motiv, Größe (ca. cm), Referenzen …" required /></Field>
           <Field label="Referenzbilder (optional)">
-            <input type="file" name="refs" multiple className="text-sm text-bone-dim file:mr-4 file:border file:border-line file:bg-transparent file:px-4 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-[0.15em] file:text-bone" />
+            <input type="file" name="refs" accept="image/*" multiple className="text-sm text-bone-dim file:mr-4 file:border file:border-line file:bg-transparent file:px-4 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-[0.15em] file:text-bone" />
           </Field>
           <div className="space-y-3 pt-2">
             <Consent name="age" text="Ich bin mindestens 18 Jahre alt (Ausweispflicht vor Ort)." />
