@@ -24,22 +24,10 @@ html {
   color: var(--color-bone);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
 }
 
-/* Full-Page-Snap nur auf größeren Screens (genug Höhe für eine Sektion).
-   Auf Mobile bleibt normales Scrollen, da Formular/Inhalte länger sind. */
-@media (min-width: 768px) {
-  html {
-    scroll-snap-type: y mandatory;
-  }
-}
-
-/* Jede Top-Level-Sektion der Startseite rastet ein */
-main > section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
+/* Full-Page-Snapping läuft über das Lenis-Snap-Addon (smooth, geeastet) –
+   kein CSS-Mandatory-Snap, da es mit Lenis kollidiert. */
 
 body {
   margin: 0;
