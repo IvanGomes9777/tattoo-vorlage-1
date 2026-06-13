@@ -67,7 +67,7 @@ export function Work() {
       </div>
 
       {/* Karussell */}
-      <div className="relative my-8 h-[58vh] min-h-[420px] w-full flex-1 md:h-[72vh]">
+      <div className="relative my-6 h-[72vh] min-h-[480px] w-full flex-1 md:h-[88vh]">
         <Carousel
           items={WORKS}
           onActive={setActive}

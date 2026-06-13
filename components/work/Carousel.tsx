@@ -66,7 +66,7 @@ function Cards({
   const N = items.length;
   const STEP = 0.6; // Winkelabstand pro Karte (rad)
   const RADIUS = 5.5;
-  const SPREAD = 4.6;
+  const SPREAD = 6.2;
 
   useFrame(() => {
     // Sanftes Einrasten auf Ziel, wenn nicht gezogen wird
@@ -95,7 +95,7 @@ function Cards({
       m.position.z = -(1 - Math.cos(angle)) * RADIUS;
       m.rotation.y = -angle * 0.6;
 
-      const scale = THREE.MathUtils.clamp(1.15 - abs * 0.18, 0.55, 1.15);
+      const scale = THREE.MathUtils.clamp(1.5 - abs * 0.24, 0.5, 1.5);
       m.scale.setScalar(scale);
 
       const mat = m.material as THREE.MeshBasicMaterial;
@@ -115,7 +115,7 @@ function Cards({
             refs.current[i] = el;
           }}
         >
-          <planeGeometry args={[3.2, 4]} />
+          <planeGeometry args={[3.6, 4.5]} />
           <meshBasicMaterial
             map={textures[i]}
             transparent
@@ -165,7 +165,7 @@ export default function Carousel({
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 6.5], fov: 50 }}
+      camera={{ position: [0, 0, 5.8], fov: 52 }}
       dpr={[1, 1.75]}
       gl={{ antialias: true, alpha: true }}
       onCreated={() => setReady(true)}
