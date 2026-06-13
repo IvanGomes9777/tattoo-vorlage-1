@@ -1,0 +1,112 @@
+"use client";
+
+import { useActionState } from "react";
+import { submitInquiry, type InquiryState } from "@/app/actions/inquiry";
+import {
+  ARTIST_OPTIONS,
+  Consent,
+  Field,
+  Honeypot,
+  Input,
+  Select,
+  STYLE_OPTIONS,
+  Textarea,
+} from "@/components/demo/formui";
+
+const initial: InquiryState = { status: "idle" };
+
+export function Contact() {
+  const [state, formAction, pending] = useActionState(submitInquiry, initial);
+
+  return (
+    <section
+      id="contact"
+      className="grid min-h-screen grid-cols-1 gap-12 border-t border-line bg-obsidian px-6 py-16 md:grid-cols-2 md:items-center md:gap-16 md:px-10 md:py-16"
+    >
+      {/* Studio-Infos */}
+      <div className="flex flex-col gap-10">
+        <div>
+          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
+            03 — Kontakt
+          </p>
+          <h2 className="font-display text-[clamp(2.4rem,6vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-bone">
+            Lass uns reden
+          </h2>
+          <p className="mt-5 max-w-[40ch] text-sm leading-relaxed text-bone-dim">
+            Schick uns deine Idee – wir melden uns persönlich für ein
+            kostenloses Beratungsgespräch.
+          </p>
+        </div>
+        <dl className="space-y-5 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim">
+          {[
+            ["Adresse", "[ADRESSE]"],
+            ["Öffnung", "[ÖFFNUNGSZEITEN]"],
+            ["Instagram", "[@HANDLE]"],
+            ["E-Mail", "[EMAIL]"],
+          ].map(([k, v]) => (
+            <div key={k} className="flex justify-between border-b border-line pb-4">
+              <dt>{k}</dt>
+              <dd className="text-right text-bone">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="flex h-48 items-center justify-center border border-line bg-surface font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">
+          [ Karte / Google Maps ]
+        </div>
+      </div>
+
+      {/* Formular oder Erfolgsmeldung */}
+      {state.status === "success" ? (
+        <div className="flex flex-col items-start justify-center gap-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
+            ✓ Gesendet
+          </p>
+          <p className="max-w-[36ch] font-display text-2xl leading-snug text-bone">
+            {state.message}
+          </p>
+        </div>
+      ) : (
+        <form action={formAction} className="flex flex-col gap-6">
+          <Honeypot />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Field label="Name"><Input name="name" placeholder="Dein Name" required /></Field>
+            <Field label="E-Mail"><Input type="email" name="email" placeholder="du@mail.de" required /></Field>
+            <Field label="Telefon"><Input name="phone" placeholder="+49 …" /></Field>
+            <Field label="Wunsch-Künstler">
+              <Select name="artist">{ARTIST_OPTIONS.map((o) => <option key={o}>{o}</option>)}</Select>
+            </Field>
+            <Field label="Stil">
+              <Select name="style">{STYLE_OPTIONS.map((o) => <option key={o}>{o}</option>)}</Select>
+            </Field>
+            <Field label="Körperstelle"><Input name="place" placeholder="z. B. Unterarm" /></Field>
+          </div>
+          <Field label="Deine Idee"><Textarea name="idea" placeholder="Motiv, Größe (ca. cm), Referenzen …" required /></Field>
+          <Field label="Referenzbilder (optional)">
+            <input type="file" name="refs" multiple className="text-sm text-bone-dim file:mr-4 file:border file:border-line file:bg-transparent file:px-4 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-[0.15em] file:text-bone" />
+          </Field>
+          <div className="space-y-3 pt-2">
+            <Consent name="age" text="Ich bin mindestens 18 Jahre alt (Ausweispflicht vor Ort)." />
+            <Consent name="privacy" text="Ich habe die Datenschutzerklärung gelesen und stimme der Verarbeitung meiner Daten zu." />
+          </div>
+
+          {state.status === "error" && (
+            <p className="font-mono text-[12px] uppercase tracking-[0.15em] text-bone">
+              ⚠ {state.message}
+            </p>
+          )}
+
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={pending}
+              className="group relative w-full overflow-hidden border border-bone px-7 py-4 text-center font-mono text-[12px] uppercase tracking-[0.2em] text-obsidian disabled:opacity-60 md:w-auto"
+            >
+              <span className="absolute inset-0 bg-bone transition-transform duration-500 ease-[var(--ease-quart)] group-hover:translate-y-full" />
+              <span className="relative">{pending ? "Senden …" : "Anfrage senden"}</span>
+            </button>
+          </div>
+        </form>
+      )}
+    </section>
+  );
+}

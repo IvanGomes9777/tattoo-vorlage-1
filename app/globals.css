@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/*
+  [STUDIO_NAME] – Design Tokens
+  Achromatische "Liquid-Chrome"-Ästhetik: die einzige Farbe entsteht aus den
+  Reflexionen des 3D-Objekts. UI bleibt obsidian + bone. Bewusst KEIN Neon-Rot
+  (Variante 1) und KEIN Champagner-Gold (Variante 5).
+*/
+@theme {
+  --color-obsidian: #0b0b0c;
+  --color-surface: #141416;
+  --color-bone: #ece8e1;
+  --color-bone-dim: #8a8782;
+  --color-line: #26262a;
+
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --ease-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html {
+  background-color: var(--color-obsidian);
+  color: var(--color-bone);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Full-Page-Snapping läuft über das Lenis-Snap-Addon (smooth, geeastet) –
+   kein CSS-Mandatory-Snap, da es mit Lenis kollidiert. */
+
+body {
+  margin: 0;
+  font-family: var(--font-display);
+  overflow-x: hidden;
+}
+
+/* Lenis Smooth-Scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Reduced Motion respektieren */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::selection {
+  background: var(--color-bone);
+  color: var(--color-obsidian);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fadeIn 0.6s var(--ease-quart);
+}
