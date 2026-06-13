@@ -47,7 +47,9 @@ export function Portfolio() {
             fill
             priority={idx === 0}
             sizes="100vw"
-            className="object-cover"
+            // Mobile: ganzes Bild zeigen (kein Beschnitt), oben verankert → unten Platz
+            // für die Typo. Desktop: cinematisch füllend.
+            className="object-contain object-top md:object-cover md:object-center"
           />
         </div>
       ))}
