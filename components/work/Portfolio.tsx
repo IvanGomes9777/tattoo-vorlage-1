@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type Work = {
   src: string;
@@ -29,10 +29,30 @@ export function Portfolio() {
   const w = WORKS[i];
   const go = (d: number) => setI((p) => (p + d + n) % n);
 
+  // Touch-Swipe (Mobile): horizontal wischen wechselt das Werk
+  const touch = useRef<{ x: number; y: number } | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    const t = e.changedTouches[0];
+    touch.current = { x: t.clientX, y: t.clientY };
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (!touch.current) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touch.current.x;
+    const dy = t.clientY - touch.current.y;
+    touch.current = null;
+    // nur horizontale, deutliche Wische werten (vertikales Scrollen nicht stören)
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      go(dx < 0 ? 1 : -1);
+    }
+  };
+
   return (
     <section
       id="work"
-      className="relative h-[100svh] w-full overflow-hidden border-t border-line bg-obsidian"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      className="relative h-[100svh] w-full touch-pan-y overflow-hidden border-t border-line bg-obsidian"
     >
       {/* Bilder gestapelt, aktives eingeblendet → weicher Crossfade */}
       {WORKS.map((item, idx) => (
@@ -85,21 +105,26 @@ export function Portfolio() {
         </div>
       </div>
 
-      {/* Pfeile */}
+      {/* Pfeile – nur Desktop. Auf Mobile wird gewischt. */}
       <button
         onClick={() => go(-1)}
         aria-label="Vorheriges Werk"
-        className="absolute left-4 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center border border-line bg-obsidian/30 text-bone-dim backdrop-blur transition-colors hover:border-bone hover:text-bone md:left-8"
+        className="absolute left-8 top-1/2 z-10 hidden h-14 w-14 -translate-y-1/2 items-center justify-center border border-line bg-obsidian/30 text-bone-dim backdrop-blur transition-colors hover:border-bone hover:text-bone md:flex"
       >
         ←
       </button>
       <button
         onClick={() => go(1)}
         aria-label="Nächstes Werk"
-        className="absolute right-4 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center border border-line bg-obsidian/30 text-bone-dim backdrop-blur transition-colors hover:border-bone hover:text-bone md:right-8"
+        className="absolute right-8 top-1/2 z-10 hidden h-14 w-14 -translate-y-1/2 items-center justify-center border border-line bg-obsidian/30 text-bone-dim backdrop-blur transition-colors hover:border-bone hover:text-bone md:flex"
       >
         →
       </button>
+
+      {/* Wisch-Hinweis – nur Mobile */}
+      <span className="pointer-events-none absolute bottom-16 left-1/2 z-10 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.25em] text-bone-dim md:hidden">
+        ‹ wischen ›
+      </span>
 
       {/* Dots */}
       <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3">
