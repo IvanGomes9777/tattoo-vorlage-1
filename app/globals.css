@@ -97,3 +97,48 @@ h3 {
 .fade-in {
   animation: fadeIn 0.6s var(--ease-quart);
 }
+
+/* Scroll-Reveal beim Eintreten in den Viewport.
+   Die Reveal-Komponente (IntersectionObserver) setzt `data-shown`, sobald das
+   Element sichtbar wird. Unter reduced-motion rendert die Komponente sofort
+   sichtbar; zusätzlich neutralisiert die Media-Query oben alle Transitions. */
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 0.9s var(--ease-quart),
+    transform 1s var(--ease-quart),
+    clip-path 1s var(--ease-quart);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+[data-reveal="up"] {
+  transform: translateY(30px);
+}
+[data-reveal="mask"] {
+  transform: translateY(42px);
+  clip-path: inset(0 0 110% 0);
+}
+[data-reveal="image"] {
+  transform: scale(1.07);
+  clip-path: inset(10% 10% 10% 10%);
+}
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Gestaffelte Gruppen-Reveals: ein Observer am Container, Kinder einzeln
+   verzögert (Stagger via inline `--reveal-delay`). */
+[data-reveal-group] > [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s var(--ease-quart),
+    transform 0.8s var(--ease-quart);
+  transition-delay: var(--reveal-delay, 0s);
+}
+[data-reveal-group][data-shown] > [data-reveal-item] {
+  opacity: 1;
+  transform: none;
+}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Reveal, RevealGroup } from "@/components/anim/Reveal";
 
 type Step = { no: string; title: string; text: string; src: string };
 
@@ -24,19 +25,30 @@ export function Process() {
       id="ablauf"
       className="flex min-h-screen flex-col justify-center border-t border-line bg-obsidian px-6 py-16 md:px-10"
     >
-      <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
+      <Reveal
+        variant="up"
+        as="p"
+        className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim"
+      >
         Ablauf
-      </p>
-      <h2 className="mb-10 font-display text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-bone">
+      </Reveal>
+      <Reveal
+        variant="mask"
+        delay={0.08}
+        as="h2"
+        className="mb-10 font-display text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-bone"
+      >
         Von der Idee zum Tattoo
-      </h2>
+      </Reveal>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.2fr_1fr] md:gap-14">
-        {/* Liste */}
-        <div>
+        {/* Liste – Schritte gestaffelt einblenden */}
+        <RevealGroup>
           {STEPS.map((st, idx) => (
             <button
               key={st.no}
+              data-reveal-item
+              style={{ "--reveal-delay": `${idx * 0.06}s` } as React.CSSProperties}
               onMouseEnter={() => setI(idx)}
               onFocus={() => setI(idx)}
               onClick={() => setI(idx)}
@@ -54,10 +66,14 @@ export function Process() {
               </span>
             </button>
           ))}
-        </div>
+        </RevealGroup>
 
         {/* Detail-Karte mit Bild-Hintergrund */}
-        <div className="relative min-h-[320px] overflow-hidden border border-line md:min-h-[440px]">
+        <Reveal
+          variant="image"
+          delay={0.1}
+          className="relative min-h-[320px] overflow-hidden border border-line md:min-h-[440px]"
+        >
           {STEPS.map((st, idx) => (
             <Image
               key={st.src}
@@ -84,7 +100,7 @@ export function Process() {
               {s.text}
             </p>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

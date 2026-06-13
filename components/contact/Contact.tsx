@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { submitInquiry, type InquiryState } from "@/app/actions/inquiry";
+import { Reveal, RevealGroup } from "@/components/anim/Reveal";
 import {
   ARTIST_OPTIONS,
   Consent,
@@ -25,7 +26,7 @@ export function Contact() {
     >
       {/* Studio-Infos */}
       <div className="flex flex-col gap-10">
-        <div>
+        <Reveal variant="up">
           <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
             Kontakt
           </p>
@@ -36,23 +37,35 @@ export function Contact() {
             Schick uns deine Idee – wir melden uns persönlich für ein
             kostenloses Beratungsgespräch.
           </p>
-        </div>
-        <dl className="space-y-5 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim">
+        </Reveal>
+        <RevealGroup
+          as="dl"
+          className="space-y-5 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim"
+        >
           {[
             ["Adresse", "[ADRESSE]"],
             ["Öffnung", "[ÖFFNUNGSZEITEN]"],
             ["Instagram", "[@HANDLE]"],
             ["E-Mail", "[EMAIL]"],
-          ].map(([k, v]) => (
-            <div key={k} className="flex justify-between border-b border-line pb-4">
+          ].map(([k, v], idx) => (
+            <div
+              key={k}
+              data-reveal-item
+              style={{ "--reveal-delay": `${idx * 0.07}s` } as React.CSSProperties}
+              className="flex justify-between border-b border-line pb-4"
+            >
               <dt>{k}</dt>
               <dd className="text-right text-bone">{v}</dd>
             </div>
           ))}
-        </dl>
-        <div className="flex h-48 items-center justify-center border border-line bg-surface font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">
+        </RevealGroup>
+        <Reveal
+          variant="up"
+          delay={0.1}
+          className="flex h-48 items-center justify-center border border-line bg-surface font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim"
+        >
           [ Karte / Google Maps ]
-        </div>
+        </Reveal>
       </div>
 
       {/* Formular oder Erfolgsmeldung */}
@@ -66,6 +79,7 @@ export function Contact() {
           </p>
         </div>
       ) : (
+        <Reveal variant="up" delay={0.1}>
         <form action={formAction} className="flex flex-col gap-6">
           <Honeypot />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -106,6 +120,7 @@ export function Contact() {
             </button>
           </div>
         </form>
+        </Reveal>
       )}
     </section>
   );
