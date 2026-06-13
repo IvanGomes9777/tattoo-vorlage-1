@@ -79,6 +79,13 @@ summary,
   border-radius: 1px;
 }
 
+/* Ausgewogene Headline-Umbrüche (verhindert Orphans/ungleiche Zeilen) */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

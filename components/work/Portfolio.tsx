@@ -127,16 +127,21 @@ export function Portfolio() {
       </span>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3">
+      <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2">
         {WORKS.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setI(idx)}
             aria-label={`Werk ${idx + 1}`}
-            className={`h-2 w-2 rounded-full transition-colors ${
-              idx === i ? "bg-bone" : "bg-bone-dim/40 hover:bg-bone-dim"
-            }`}
-          />
+            aria-current={idx === i}
+            className="grid h-11 w-9 place-items-center"
+          >
+            <span
+              className={`h-2 w-2 rounded-full transition-colors ${
+                idx === i ? "bg-bone" : "bg-bone-dim/40"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </section>
