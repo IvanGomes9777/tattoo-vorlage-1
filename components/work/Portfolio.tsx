@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { Reveal } from "@/components/anim/Reveal";
 
 type Work = {
   src: string;
@@ -54,25 +55,29 @@ export function Portfolio() {
       onTouchEnd={onTouchEnd}
       className="relative h-[100svh] w-full touch-pan-y overflow-hidden border-t border-line bg-obsidian"
     >
-      {/* Bilder gestapelt, aktives eingeblendet → weicher Crossfade */}
-      {WORKS.map((item, idx) => (
-        <div
-          key={item.src}
-          className="absolute inset-0 transition-opacity duration-700 ease-[var(--ease-quart)]"
-          style={{ opacity: idx === i ? 1 : 0 }}
-        >
-          <Image
-            src={item.src}
-            alt={`${item.style} — ${item.title}`}
-            fill
-            priority={idx === 0}
-            sizes="100vw"
-            // Mobile: ganzes Bild zeigen (kein Beschnitt), vertikal zentriert →
-            // sitzt auf einer Linie mit den Pfeilen. Desktop: cinematisch füllend.
-            className="object-contain object-center md:object-cover"
-          />
-        </div>
-      ))}
+      {/* Bilder gestapelt, aktives eingeblendet → weicher Crossfade.
+          Reveal-Wrapper gibt dem ganzen Stack beim Reinscrollen einen
+          cinematischen Scale-/Clip-Settle. */}
+      <Reveal variant="image" className="absolute inset-0">
+        {WORKS.map((item, idx) => (
+          <div
+            key={item.src}
+            className="absolute inset-0 transition-opacity duration-700 ease-[var(--ease-quart)]"
+            style={{ opacity: idx === i ? 1 : 0 }}
+          >
+            <Image
+              src={item.src}
+              alt={`${item.style} — ${item.title}`}
+              fill
+              priority={idx === 0}
+              sizes="100vw"
+              // Mobile: ganzes Bild zeigen (kein Beschnitt), vertikal zentriert →
+              // sitzt auf einer Linie mit den Pfeilen. Desktop: cinematisch füllend.
+              className="object-contain object-center md:object-cover"
+            />
+          </div>
+        ))}
+      </Reveal>
 
       {/* Grade/Vignette für Lesbarkeit */}
       <div
@@ -83,26 +88,32 @@ export function Portfolio() {
         }}
       />
 
-      {/* Text-Layer */}
-      <div key={`t${i}`} className="fade-in absolute inset-0 flex flex-col justify-between px-6 py-8 md:px-12 md:py-12">
-        <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim">
+      {/* Text-Layer. Entrance-Reveals einmalig beim Reinscrollen; der
+          Slide-Wechsel selbst bleibt der bestehende fade-in (key={i}). */}
+      <div className="absolute inset-0 flex flex-col justify-between px-6 py-8 md:px-12 md:py-12">
+        <Reveal
+          variant="up"
+          className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim"
+        >
           <span>Portfolio</span>
           <span>
             {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
           </span>
-        </div>
+        </Reveal>
 
-        <div>
-          <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim">
-            {w.artist} · {w.duration}
-          </p>
-          <h2 className="font-display text-[clamp(3rem,12vw,10rem)] font-medium leading-[0.82] tracking-[-0.03em] text-bone">
-            {w.style}
-          </h2>
-          <p className="mt-4 font-display text-xl text-bone-dim md:text-2xl">
-            {w.title}
-          </p>
-        </div>
+        <Reveal variant="up" delay={0.12}>
+          <div key={`t${i}`} className="fade-in">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim">
+              {w.artist} · {w.duration}
+            </p>
+            <h2 className="font-display text-[clamp(3rem,12vw,10rem)] font-medium leading-[0.82] tracking-[-0.03em] text-bone">
+              {w.style}
+            </h2>
+            <p className="mt-4 font-display text-xl text-bone-dim md:text-2xl">
+              {w.title}
+            </p>
+          </div>
+        </Reveal>
       </div>
 
       {/* Pfeile – nur Desktop. Auf Mobile wird gewischt. */}
