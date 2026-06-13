@@ -62,6 +62,23 @@ html.lenis body {
   color: var(--color-obsidian);
 }
 
+/* A11y / Politur (UI/UX Pre-Delivery-Checkliste):
+   garantierter Zeiger auf Interaktionselementen + sichtbare Fokus-States
+   für Tastatur-Navigation (nur bei :focus-visible, nicht bei Maus-Klick). */
+button,
+a,
+label,
+summary,
+[role="button"] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-bone);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
