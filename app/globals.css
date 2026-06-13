@@ -26,8 +26,8 @@ html {
   text-rendering: optimizeLegibility;
 }
 
-/* Full-Page-Snapping läuft über das Lenis-Snap-Addon (smooth, geeastet) –
-   kein CSS-Mandatory-Snap, da es mit Lenis kollidiert. */
+/* Freies Smooth-Scrolling über Lenis – kein Full-Page-Snapping/Anker-Einrasten,
+   damit sich die Seite beim Scrollen nicht festsetzt. */
 
 body {
   margin: 0;
