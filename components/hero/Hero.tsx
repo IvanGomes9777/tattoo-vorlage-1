@@ -5,6 +5,33 @@ import gsap from "gsap";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+  const media = useRef<HTMLDivElement>(null);
+
+  // Cinematischer Scroll-Parallax: das Video driftet langsamer als der Scroll
+  // (Tiefenwirkung). Nur transform → günstig; reduced-motion aus.
+  useEffect(() => {
+    const el = media.current;
+    if (!el) return;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) return;
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      el.style.transform = `translate3d(0, ${window.scrollY * 0.18}px, 0) scale(1.18)`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -34,7 +61,7 @@ export function Hero() {
       className="relative h-[100svh] w-full overflow-hidden bg-obsidian"
     >
       {/* Video-Ebene: Old-School-Tattoomaschine, full-bleed */}
-      <div className="absolute inset-0 z-0">
+      <div ref={media} className="absolute inset-0 z-0 will-change-transform">
         <video
           className="h-full w-full object-cover"
           src="/hero-tattoo.mp4"
@@ -61,16 +88,16 @@ export function Hero() {
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-6 py-6 font-mono text-[11px] uppercase tracking-[0.2em] text-bone-dim md:px-10">
         <span className="text-bone">[STUDIO_NAME]</span>
         <nav className="hidden gap-8 md:flex">
-          <a className="transition-colors hover:text-bone" href="#work">
+          <a className="nav-link transition-colors hover:text-bone" href="#work">
             Work
           </a>
-          <a className="transition-colors hover:text-bone" href="#artists">
+          <a className="nav-link transition-colors hover:text-bone" href="#artists">
             Artists
           </a>
-          <a className="transition-colors hover:text-bone" href="#studio">
+          <a className="nav-link transition-colors hover:text-bone" href="#studio">
             Studio
           </a>
-          <a className="transition-colors hover:text-bone" href="#contact">
+          <a className="nav-link transition-colors hover:text-bone" href="#contact">
             Contact
           </a>
         </nav>

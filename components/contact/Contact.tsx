@@ -27,9 +27,6 @@ export function Contact() {
       {/* Studio-Infos */}
       <div className="flex flex-col gap-10">
         <Reveal variant="up">
-          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
-            Kontakt
-          </p>
           <h2 className="font-display text-[clamp(2.4rem,6vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-bone">
             Lass uns reden
           </h2>
@@ -70,11 +67,25 @@ export function Contact() {
 
       {/* Formular oder Erfolgsmeldung */}
       {state.status === "success" ? (
-        <div className="flex flex-col items-start justify-center gap-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
-            ✓ Gesendet
+        <div role="status" aria-live="polite" className="flex flex-col items-start justify-center gap-6">
+          <span className="seal-in grid h-16 w-16 place-items-center rounded-full border border-bone text-bone">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-7 w-7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path className="draw-check" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          <p className="fade-in font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
+            Gesendet
           </p>
-          <p className="max-w-[36ch] font-display text-2xl leading-snug text-bone">
+          <p className="fade-in max-w-[36ch] font-display text-2xl leading-snug text-bone">
             {state.message}
           </p>
         </div>
@@ -83,20 +94,20 @@ export function Contact() {
         <form action={formAction} className="flex flex-col gap-6">
           <Honeypot />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Field label="Name"><Input name="name" placeholder="Dein Name" required /></Field>
-            <Field label="E-Mail"><Input type="email" name="email" placeholder="du@mail.de" required /></Field>
-            <Field label="Telefon"><Input name="phone" placeholder="+49 …" /></Field>
+            <Field label="Name" required><Input name="name" placeholder="Dein Name" autoComplete="name" maxLength={80} required /></Field>
+            <Field label="E-Mail" required><Input type="email" name="email" placeholder="du@mail.de" autoComplete="email" inputMode="email" maxLength={254} required /></Field>
+            <Field label="Telefon"><Input type="tel" name="phone" placeholder="+49 …" autoComplete="tel" inputMode="tel" maxLength={32} /></Field>
             <Field label="Wunsch-Künstler">
               <Select name="artist">{ARTIST_OPTIONS.map((o) => <option key={o}>{o}</option>)}</Select>
             </Field>
             <Field label="Stil">
               <Select name="style">{STYLE_OPTIONS.map((o) => <option key={o}>{o}</option>)}</Select>
             </Field>
-            <Field label="Körperstelle"><Input name="place" placeholder="z. B. Unterarm" /></Field>
+            <Field label="Körperstelle"><Input name="place" placeholder="z. B. Unterarm" autoComplete="off" maxLength={60} /></Field>
           </div>
-          <Field label="Deine Idee"><Textarea name="idea" placeholder="Motiv, Größe (ca. cm), Referenzen …" required /></Field>
+          <Field label="Deine Idee" required><Textarea name="idea" placeholder="Motiv, Größe (ca. cm), Referenzen …" maxLength={1500} required /></Field>
           <Field label="Referenzbilder (optional)">
-            <input type="file" name="refs" multiple className="text-sm text-bone-dim file:mr-4 file:border file:border-line file:bg-transparent file:px-4 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-[0.15em] file:text-bone" />
+            <input type="file" name="refs" accept="image/*" multiple className="text-sm text-bone-dim file:mr-4 file:border file:border-line file:bg-transparent file:px-4 file:py-2 file:font-mono file:text-[11px] file:uppercase file:tracking-[0.15em] file:text-bone" />
           </Field>
           <div className="space-y-3 pt-2">
             <Consent name="age" text="Ich bin mindestens 18 Jahre alt (Ausweispflicht vor Ort)." />
@@ -104,7 +115,7 @@ export function Contact() {
           </div>
 
           {state.status === "error" && (
-            <p className="font-mono text-[12px] uppercase tracking-[0.15em] text-bone">
+            <p role="alert" className="font-mono text-[12px] uppercase tracking-[0.15em] text-bone">
               ⚠ {state.message}
             </p>
           )}

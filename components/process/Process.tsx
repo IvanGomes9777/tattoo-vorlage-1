@@ -30,7 +30,7 @@ export function Process() {
         as="p"
         className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim"
       >
-        Ablauf
+        In sechs Schritten
       </Reveal>
       <Reveal
         variant="mask"
@@ -52,14 +52,27 @@ export function Process() {
               onMouseEnter={() => setI(idx)}
               onFocus={() => setI(idx)}
               onClick={() => setI(idx)}
-              className="group flex w-full items-baseline gap-5 border-b border-line py-4 text-left md:py-5"
+              className="group relative flex w-full items-baseline gap-5 border-b border-line py-4 text-left md:py-5"
             >
-              <span className="font-mono text-[12px] tracking-[0.2em] text-bone-dim">
+              {/* Aktiv-Marker: dünne Linie, die nach links herauswächst. */}
+              <span
+                aria-hidden
+                className={`absolute left-0 top-1/2 h-px -translate-y-1/2 bg-bone transition-all duration-500 ease-[var(--ease-out-expo)] ${
+                  idx === i ? "w-6 opacity-100" : "w-0 opacity-0"
+                }`}
+              />
+              <span
+                className={`font-mono text-[12px] tracking-[0.2em] text-bone-dim transition-transform duration-500 ease-[var(--ease-out-expo)] ${
+                  idx === i ? "translate-x-9" : ""
+                }`}
+              >
                 {st.no}
               </span>
               <span
-                className={`font-display text-2xl transition-colors md:text-4xl ${
-                  idx === i ? "text-bone" : "text-bone-dim group-hover:text-bone"
+                className={`font-display text-2xl transition-all duration-500 ease-[var(--ease-out-expo)] md:text-4xl ${
+                  idx === i
+                    ? "translate-x-9 text-bone"
+                    : "text-bone-dim group-hover:translate-x-1 group-hover:text-bone"
                 }`}
               >
                 {st.title}
@@ -90,7 +103,7 @@ export function Process() {
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/55 to-obsidian/30" />
 
           <div key={i} className="fade-in relative flex h-full flex-col justify-end p-8 md:p-10">
-            <span className="font-display text-7xl leading-none text-bone/90 md:text-8xl">
+            <span className="wipe-up font-display text-7xl leading-none text-bone/90 md:text-8xl">
               {s.no}
             </span>
             <h3 className="mt-3 font-display text-2xl text-bone md:text-3xl">
