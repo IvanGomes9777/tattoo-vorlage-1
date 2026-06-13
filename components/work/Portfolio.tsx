@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/anim/Reveal";
 
 type Work = {
@@ -30,6 +30,31 @@ export function Portfolio() {
   const w = WORKS[i];
   const go = (d: number) => setI((p) => (p + d + n) % n);
 
+  // Pfeiltasten ←/→ wechseln das Werk – aber nur, wenn die Sektion im View ist
+  // und der Fokus nicht in einem Eingabefeld liegt (Critique P2: Keyboard-Nav).
+  const sectionRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let inView = false;
+    const io = new IntersectionObserver(([e]) => (inView = e.isIntersecting), {
+      threshold: 0.5,
+    });
+    io.observe(el);
+    const onKey = (e: KeyboardEvent) => {
+      if (!inView) return;
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      if (e.key === "ArrowLeft") setI((p) => (p - 1 + n) % n);
+      else if (e.key === "ArrowRight") setI((p) => (p + 1) % n);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      io.disconnect();
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [n]);
+
   // Touch-Swipe (Mobile): horizontal wischen wechselt das Werk
   const touch = useRef<{ x: number; y: number } | null>(null);
   const onTouchStart = (e: React.TouchEvent) => {
@@ -50,6 +75,7 @@ export function Portfolio() {
 
   return (
     <section
+      ref={sectionRef}
       id="work"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}

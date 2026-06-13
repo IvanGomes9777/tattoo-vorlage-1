@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Spline_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
-const spaceGrotesk = Space_Grotesk({
+// Display/Body: Bricolage Grotesque – editorial-grotesk mit eigenem Charakter
+// (bewusst nicht Space Grotesk; das stand auf der Reflex-Reject-Liste).
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-display-src",
   display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
+// Labels/Meta: Spline Sans Mono – hält die Grotesk+Mono-Kontrastachse.
+const mono = Spline_Sans_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono-src",
   display: "swap",
 });
 
@@ -28,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+    <html lang="de" className={`${display.variable} ${mono.variable}`}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
         {/* Cinematic-Film-Grain über der ganzen Seite (rein dekorativ). */}

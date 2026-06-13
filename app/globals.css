@@ -13,8 +13,8 @@
   --color-bone-dim: #8a8782;
   --color-line: #26262a;
 
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display: var(--font-display-src), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-src), ui-monospace, monospace;
 
   --ease-quart: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

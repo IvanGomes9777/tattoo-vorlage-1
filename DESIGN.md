@@ -15,8 +15,8 @@
 Achromatisch, dark-only (bewusst, kein Light-Mode). Akzentfarbe = Bildmaterial.
 
 ## Typografie
-- `--font-display`: Space Grotesk (Headlines, Body)
-- `--font-mono`: JetBrains Mono (Labels, Meta, Buttons)
+- `--font-display`: Bricolage Grotesque (Headlines, Body)
+- `--font-mono`: Spline Sans Mono (Labels, Meta, Buttons)
 - Headlines: `leading-[0.82–0.92]`, `tracking-[-0.02 … -0.03em]`, `text-wrap: balance`
 - Mono-Labels: `uppercase`, `tracking-[0.2–0.35em]`, ~11px
 
@@ -37,8 +37,12 @@ Achromatisch, dark-only (bewusst, kein Light-Mode). Akzentfarbe = Bildmaterial.
 - Bilder mit `alt`; dekorative Bilder `alt="" aria-hidden`
 
 ## Bekannte Tells / offene Punkte (impeccable-Audit)
-- Numerische Section-Eyebrows (01/02/03) + Uppercase-Mono-Eyebrow auf jeder
-  Sektion = AI-Grammar-Tell. Bei echter Sequenz (Ablauf) legitim, sonst Kandidat
-  zum Entfernen/Umgestalten. → `/impeccable quieter` / Cadence überdenken.
+- ~~Uppercase-Mono-Eyebrow auf jeder Sektion~~ → behoben: Eyebrows bei
+  Artists/Kontakt entfernt, Ablauf trägt informativen Sequenz-Kicker
+  („In sechs Schritten"). Kadenz ist jetzt variiert.
+- ~~Fonts auf der Reflex-Reject-Liste (Space Grotesk / JetBrains Mono)~~ →
+  ersetzt durch Bricolage Grotesque + Spline Sans Mono.
 - Hero-/Display-clamp bis 10–11rem über der 6rem-„Shouting"-Schwelle (bewusst
   editorial, aber bei Bedarf reduzieren).
+- Karten-Platzhalter im Kontakt („[ Karte / Google Maps ]") → echtes Embed,
+  sobald die Adresse final ist.

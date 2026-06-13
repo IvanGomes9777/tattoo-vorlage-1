@@ -26,7 +26,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const isDesktop = window.matchMedia("(min-width: 768px)").matches;
     if (isDesktop) {
       snap = new Snap(lenis, {
-        type: "mandatory",
+        // "proximity" statt "mandatory": rastet nur nahe einer Sektionsgrenze
+        // ein und kapert nicht jeden Scroll – mehr Nutzerkontrolle (Critique P2).
+        type: "proximity",
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         debounce: 120,
