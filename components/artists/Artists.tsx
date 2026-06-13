@@ -30,9 +30,9 @@ export function Artists() {
   return (
     <section
       id="artists"
-      className="relative border-t border-line bg-obsidian px-6 pt-20 md:px-10 md:pt-28"
+      className="relative flex h-screen flex-col overflow-hidden border-t border-line bg-obsidian px-6 py-12 md:px-10 md:py-16"
     >
-      <div className="mb-12 flex flex-col justify-between gap-6 md:mb-16 md:flex-row md:items-end">
+      <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
         <div>
           <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
             02 — Artists
@@ -48,7 +48,7 @@ export function Artists() {
       </div>
 
       {/* Split Duo */}
-      <div className="flex min-h-[78vh] flex-col gap-3 pb-3 md:flex-row">
+      <div className="flex min-h-0 flex-1 flex-col gap-3 md:flex-row">
         {ARTISTS.map((a) => (
           <article
             key={a.name}

@@ -21,7 +21,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="grid grid-cols-1 gap-12 border-t border-line bg-obsidian px-6 py-16 md:grid-cols-2 md:gap-16 md:px-10 md:py-24"
+      className="grid min-h-screen grid-cols-1 gap-12 border-t border-line bg-obsidian px-6 py-16 md:grid-cols-2 md:items-center md:gap-16 md:px-10 md:py-16"
     >
       {/* Studio-Infos */}
       <div className="flex flex-col gap-10">
