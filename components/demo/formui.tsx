@@ -3,23 +3,31 @@
 
 export function Field({
   label,
+  required,
   children,
 }: {
   label: string;
+  required?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <label className="block">
       <span className="mb-2 block font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">
         {label}
+        {required && (
+          <span className="ml-1 text-bone" aria-hidden>
+            *
+          </span>
+        )}
       </span>
       {children}
     </label>
   );
 }
 
+// Placeholder bewusst auf volle bone-dim (5.50:1, WCAG-AA) – /60 fiel auf 2.65:1.
 const base =
-  "w-full bg-transparent border-b border-line py-3 text-bone placeholder-bone-dim/60 outline-none transition-all duration-300 ease-[var(--ease-out-expo)] focus:border-bone focus:shadow-[0_6px_18px_-12px_rgba(236,232,225,0.5)]";
+  "w-full bg-transparent border-b border-line py-3 text-bone placeholder-bone-dim outline-none transition-all duration-300 ease-[var(--ease-out-expo)] focus:border-bone focus:shadow-[0_6px_18px_-12px_rgba(236,232,225,0.5)]";
 
 export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={base} />;

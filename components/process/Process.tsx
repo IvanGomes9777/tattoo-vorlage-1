@@ -30,7 +30,7 @@ export function Process() {
         as="p"
         className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim"
       >
-        Ablauf
+        In sechs Schritten
       </Reveal>
       <Reveal
         variant="mask"
