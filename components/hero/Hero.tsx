@@ -1,14 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-
-// 3D nur clientseitig laden – kein SSR für WebGL, plus ruhiger First Paint
-const InkScene = dynamic(() => import("./InkScene"), {
-  ssr: false,
-  loading: () => null,
-});
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -40,17 +33,27 @@ export function Hero() {
       ref={root}
       className="relative h-[100svh] w-full overflow-hidden bg-obsidian"
     >
-      {/* 3D-Ebene */}
+      {/* Video-Ebene: Old-School-Tattoomaschine, full-bleed */}
       <div className="absolute inset-0 z-0">
-        <InkScene />
+        <video
+          className="h-full w-full object-cover"
+          src="/hero-tattoo.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          // dezente Entsättigung + Abdunklung -> düster-eleganter Monochrom-Grade
+          style={{ filter: "grayscale(0.55) contrast(1.05) brightness(0.62)" }}
+        />
       </div>
 
-      {/* Vignette/Verlauf für Textkontrast über dem 3D-Objekt */}
+      {/* Grading-/Vignette-Ebene für Textkontrast & Stimmung */}
       <div
         className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(11,11,12,0.55) 100%)",
+            "linear-gradient(90deg, rgba(11,11,12,0.85) 0%, rgba(11,11,12,0.45) 45%, rgba(11,11,12,0.25) 100%), radial-gradient(120% 90% at 50% 35%, transparent 35%, rgba(11,11,12,0.7) 100%)",
         }}
       />
 
