@@ -75,7 +75,8 @@ function Cards({
     }
     const cur = posRef.current;
 
-    const active = Math.max(0, Math.min(N - 1, Math.round(cur)));
+    // Endlos-Loop: aktiver Index zirkulär (0..N-1)
+    const active = ((Math.round(cur) % N) + N) % N;
     if (active !== lastActive.current) {
       lastActive.current = active;
       onActive(active);
@@ -84,7 +85,9 @@ function Cards({
     for (let i = 0; i < N; i++) {
       const m = refs.current[i];
       if (!m) continue;
-      const offset = i - cur;
+      // kürzesten Abstand auf dem Ring wählen → nahtloses Umlaufen
+      let offset = (((i - cur) % N) + N) % N;
+      if (offset > N / 2) offset -= N;
       const angle = offset * STEP;
       const abs = Math.abs(offset);
 
@@ -142,20 +145,20 @@ export default function Carousel({
   const [ready, setReady] = useState(false);
   const N = items.length;
 
-  const clampTarget = () => {
-    target.current = Math.max(0, Math.min(N - 1, Math.round(pos.current)));
+  // Endlos: kein Clamp, nur auf nächste ganze Position einrasten
+  const snapTarget = () => {
+    target.current = Math.round(pos.current);
   };
 
   useEffect(() => {
     registerApi?.({
       step: (dir) => {
-        target.current = Math.max(
-          0,
-          Math.min(N - 1, Math.round(pos.current) + dir)
-        );
+        target.current = Math.round(pos.current) + dir;
       },
       go: (i) => {
-        target.current = Math.max(0, Math.min(N - 1, i));
+        // kürzesten Weg zum gewünschten Index auf dem Ring wählen
+        const k = Math.round((pos.current - i) / N);
+        target.current = i + k * N;
       },
     });
   }, [registerApi, N]);
@@ -181,27 +184,21 @@ export default function Carousel({
       onPointerMove={(e) => {
         if (!dragging.current) return;
         const dx = e.clientX - startX.current;
-        pos.current = Math.max(
-          -0.4,
-          Math.min(N - 0.6, startPos.current - dx * 0.006)
-        );
+        pos.current = startPos.current - dx * 0.006;
       }}
       onPointerUp={(e) => {
         dragging.current = false;
-        clampTarget();
+        snapTarget();
         (e.target as HTMLElement).style.cursor = "grab";
       }}
       onPointerLeave={() => {
         if (dragging.current) {
           dragging.current = false;
-          clampTarget();
+          snapTarget();
         }
       }}
       onWheel={(e) => {
-        target.current = Math.max(
-          0,
-          Math.min(N - 1, Math.round(pos.current) + Math.sign(e.deltaY))
-        );
+        target.current = Math.round(pos.current) + Math.sign(e.deltaY);
       }}
     >
       <Cards
