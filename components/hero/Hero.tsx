@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { STUDIO } from "@/lib/studio";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -86,7 +87,7 @@ export function Hero() {
 
       {/* Meta-Leiste oben (Editorial / technischer Ductus) */}
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-6 py-6 font-mono text-[11px] uppercase tracking-[0.2em] text-bone-dim md:px-10">
-        <span className="text-bone">[STUDIO_NAME]</span>
+        <span className="text-bone">{STUDIO.name}</span>
         <nav className="hidden gap-8 md:flex">
           <a className="nav-link transition-colors hover:text-bone" href="#work">
             Work
@@ -115,7 +116,7 @@ export function Hero() {
           data-fade
           className="mb-6 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim"
         >
-          [STADT] — Est. [JAHR] / By Appointment
+          {STUDIO.city} — Est. {STUDIO.established} / By Appointment
         </p>
 
         <h1 className="max-w-[14ch] font-display text-[clamp(3.2rem,12vw,11rem)] font-medium leading-[0.86] tracking-[-0.03em] text-bone">
@@ -134,8 +135,8 @@ export function Hero() {
           data-fade
           className="mt-8 max-w-[44ch] text-base leading-relaxed text-bone-dim md:text-lg"
         >
-          [STUDIO_NAME] ist ein kuratiertes Tattoo-Atelier. Kein Katalog —
-          jedes Stück entsteht im Dialog. <span className="text-bone">[CLAIM]</span>
+          {STUDIO.name} ist ein kuratiertes Tattoo-Atelier. Kein Katalog —
+          jedes Stück entsteht im Dialog. <span className="text-bone">{STUDIO.claim}</span>
         </p>
 
         <div data-fade className="mt-10 flex flex-wrap items-center gap-4">
@@ -157,7 +158,7 @@ export function Hero() {
 
       {/* Scroll-Cue + Koordinaten unten */}
       <footer className="absolute inset-x-0 bottom-0 z-30 flex items-end justify-between px-6 py-6 font-mono text-[11px] uppercase tracking-[0.2em] text-bone-dim md:px-10">
-        <span data-fade>[LAT] / [LONG]</span>
+        <span data-fade>{STUDIO.geo.lat} / {STUDIO.geo.long}</span>
         <span data-fade className="flex items-center gap-3">
           Scroll
           <span className="block h-8 w-px animate-pulse bg-bone-dim" />

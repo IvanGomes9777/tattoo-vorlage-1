@@ -5,7 +5,7 @@
 
 ## Product
 High-End-Website für ein exklusives, modernes Tattoo-Atelier ([STUDIO_NAME]).
-Single-Page mit Full-Page-Snap: Hero → Portfolio → Artists → Ablauf → Kontakt.
+Single-Page: Hero → Portfolio → Artists → Ablauf → Kontakt → Footer.
 Ziel: Werke & Künstler inszenieren, Vertrauen aufbauen, Anfragen generieren.
 
 ## Register
@@ -50,4 +50,5 @@ Emojis im UI. Deutsch, geduzt.
 - Artists: Split-Duo (Hover-Expand auf Desktop, gestapelt auf Mobile)
 - Ablauf: Hover-Index mit Bild-Hintergrund je Schritt (echte 6er-Sequenz)
 - Kontakt: Split (Infos + Formular, Server-Validierung, 18+/DSGVO-Consent)
-- Motion: Lenis Smooth-Scroll + Snap-Addon; ease-out-expo; reduced-motion aware
+- Footer: oversized Wortmarke + Mono-Spalten (Navigation/Kontakt/Rechtliches)
+- Motion: Lenis Smooth-Scroll (freies Scrollen, kein Snap); ease-out-expo; reduced-motion aware

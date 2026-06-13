@@ -11,6 +11,7 @@ import {
   SubmitButton,
   Textarea,
 } from "./formui";
+import { STUDIO } from "@/lib/studio";
 
 /** D — Sticky Info: Formular scrollt, rechts bleibt eine Studio-Karte stehen. */
 export function BookingSticky() {
@@ -51,24 +52,24 @@ export function BookingSticky() {
       <aside className="md:sticky md:top-24 md:self-start">
         <div className="border border-line bg-surface p-8">
           <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
-            [STUDIO_NAME]
+            {STUDIO.name}
           </p>
           <dl className="mt-6 space-y-5 text-sm">
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">Adresse</dt>
-              <dd className="mt-1 text-bone">[ADRESSE]</dd>
+              <dd className="mt-1 text-bone">{STUDIO.address.full}</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">Öffnungszeiten</dt>
-              <dd className="mt-1 text-bone">[ÖFFNUNGSZEITEN]</dd>
+              <dd className="mt-1 text-bone">{STUDIO.hours}</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">Instagram</dt>
-              <dd className="mt-1 text-bone">[@HANDLE]</dd>
+              <dd className="mt-1 text-bone">{STUDIO.instagram.handle}</dd>
             </div>
             <div>
               <dt className="font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">E-Mail</dt>
-              <dd className="mt-1 text-bone">[EMAIL]</dd>
+              <dd className="mt-1 text-bone">{STUDIO.email}</dd>
             </div>
           </dl>
           <p className="mt-6 border-t border-line pt-5 text-xs leading-relaxed text-bone-dim">

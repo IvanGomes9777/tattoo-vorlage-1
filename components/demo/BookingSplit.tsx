@@ -11,6 +11,7 @@ import {
   SubmitButton,
   Textarea,
 } from "./formui";
+import { STUDIO } from "@/lib/studio";
 
 /** A — Split: links Studio-Infos + Karte, rechts das Formular. */
 export function BookingSplit() {
@@ -29,23 +30,30 @@ export function BookingSplit() {
         <dl className="space-y-5 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim">
           <div className="flex justify-between border-b border-line pb-4">
             <dt>Adresse</dt>
-            <dd className="text-right text-bone">[ADRESSE]</dd>
+            <dd className="text-right text-bone">{STUDIO.address.full}</dd>
           </div>
           <div className="flex justify-between border-b border-line pb-4">
             <dt>Öffnung</dt>
-            <dd className="text-right text-bone">[ÖFFNUNGSZEITEN]</dd>
+            <dd className="text-right text-bone">{STUDIO.hours}</dd>
           </div>
           <div className="flex justify-between border-b border-line pb-4">
             <dt>Instagram</dt>
-            <dd className="text-right text-bone">[@HANDLE]</dd>
+            <dd className="text-right text-bone">{STUDIO.instagram.handle}</dd>
           </div>
           <div className="flex justify-between border-b border-line pb-4">
             <dt>E-Mail</dt>
-            <dd className="text-right text-bone">[EMAIL]</dd>
+            <dd className="text-right text-bone">{STUDIO.email}</dd>
           </div>
         </dl>
-        <div className="flex h-48 items-center justify-center border border-line bg-surface font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim">
-          [ Karte / Google Maps ]
+        <div className="h-48 overflow-hidden border border-line bg-surface">
+          <iframe
+            src={STUDIO.maps.embed}
+            title={`Karte: ${STUDIO.name}, ${STUDIO.address.full}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-full w-full"
+            style={{ border: 0, filter: "grayscale(1) invert(0.92) contrast(0.9)" }}
+          />
         </div>
       </div>
 

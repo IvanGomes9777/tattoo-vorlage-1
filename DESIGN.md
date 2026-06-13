@@ -22,11 +22,11 @@ Achromatisch, dark-only (bewusst, kein Light-Mode). Akzentfarbe = Bildmaterial.
 
 ## Motion
 - `--ease-quart: cubic-bezier(0.76,0,0.24,1)`; sonst ease-out-expo
-- Lenis Smooth-Scroll + Snap-Addon (Desktop), reduced-motion: aus
+- Lenis Smooth-Scroll (freies Scrollen, kein Full-Page-Snap), reduced-motion: aus
 - Crossfades/Reveals via `fade-in` + GSAP; kein Bounce/Elastic
 
 ## Spacing / Layout
-- Sektionen: `min-h-screen`/`h-screen`, Full-Page-Snap (Desktop)
+- Sektionen: `min-h-screen`/`h-screen`, freies Smooth-Scrollen (kein Snap)
 - Padding: `px-6` (mobile) / `px-10–12` (desktop)
 - Flex für 1D, Grid für 2D; Split-Layouts 1fr/1.2–1.4fr
 
