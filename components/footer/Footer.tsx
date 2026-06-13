@@ -1,10 +1,12 @@
 import { Reveal, RevealGroup } from "@/components/anim/Reveal";
+import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
+import { STUDIO } from "@/lib/studio";
 
 /**
  * Site-Footer (contentinfo). Editorialer Abschluss in der achromatischen
  * Liquid-Chrome-Grammatik: oversized Brand-Mark als Schluss-Geste, darunter
  * Navigation / Kontakt / Rechtliches in Mono-Spalten, abschließende Meta-Zeile.
- * Platzhalter in `[]` bleiben bis Branding final ist – analog zu Hero/Kontakt.
+ * Inhalte stammen aus `@/lib/studio` (zentrale, später ersetzbare Beispieldaten).
  */
 const NAV = [
   ["Work", "#work"],
@@ -14,15 +16,20 @@ const NAV = [
 ] as const;
 
 const CONTACT = [
-  ["E-Mail", "[EMAIL]", "mailto:[EMAIL]"],
-  ["Instagram", "[@HANDLE]", "https://instagram.com/[HANDLE]"],
-  ["Telefon", "[TELEFON]", "tel:[TELEFON]"],
+  ["E-Mail", STUDIO.email, `mailto:${STUDIO.email}`],
+  ["Instagram", STUDIO.instagram.handle, STUDIO.instagram.url],
+  ["Telefon", STUDIO.phone.display, `tel:${STUDIO.phone.href}`],
 ] as const;
 
 const LEGAL = [
   ["Impressum", "/impressum"],
   ["Datenschutz", "/datenschutz"],
+  ["AGB", "/agb"],
+  ["Cookies", "/cookies"],
 ] as const;
+
+const linkClass =
+  "nav-link w-fit font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition-colors hover:text-bone-dim";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -32,19 +39,22 @@ export function Footer() {
       {/* Schluss-Geste: oversized Wortmarke, bewusst editorial überlebensgroß */}
       <Reveal variant="up">
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim">
-          [STADT] — Est. [JAHR]
+          {STUDIO.city} — Est. {STUDIO.established}
         </p>
         <h2 className="mt-4 font-display text-[clamp(2.8rem,11vw,9rem)] font-medium leading-[0.85] tracking-[-0.03em] text-bone">
-          [STUDIO_NAME]
+          {STUDIO.name}
         </h2>
       </Reveal>
 
-      {/* Spalten: Navigation / Kontakt / Rechtliches */}
+      {/* Spalten: Beschreibung / Navigation / Kontakt / Rechtliches */}
       <div className="mt-16 grid grid-cols-2 gap-10 border-t border-line pt-12 md:mt-24 md:grid-cols-4">
         <Reveal variant="up" className="col-span-2 max-w-[34ch] md:col-span-1">
-          <p className="text-sm leading-relaxed text-bone-dim">
-            Kuratiertes Tattoo-Atelier. Kein Katalog — jedes Stück entsteht im
-            Dialog.
+          <p className="text-sm leading-relaxed text-bone-dim">{STUDIO.tagline}</p>
+          <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim">
+            {STUDIO.address.full}
+          </p>
+          <p className="mt-2 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim">
+            {STUDIO.hours}
           </p>
         </Reveal>
 
@@ -58,7 +68,7 @@ export function Footer() {
               data-reveal-item
               style={{ "--reveal-delay": `${idx * 0.05}s` } as React.CSSProperties}
               href={href}
-              className="nav-link w-fit font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition-colors hover:text-bone-dim"
+              className={linkClass}
             >
               {label}
             </a>
@@ -77,10 +87,7 @@ export function Footer() {
             >
               <dt className="sr-only">{label}</dt>
               <dd>
-                <a
-                  href={href}
-                  className="nav-link w-fit font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition-colors hover:text-bone-dim"
-                >
+                <a href={href} className={linkClass}>
                   {value}
                 </a>
               </dd>
@@ -98,17 +105,22 @@ export function Footer() {
               data-reveal-item
               style={{ "--reveal-delay": `${idx * 0.05}s` } as React.CSSProperties}
               href={href}
-              className="nav-link w-fit font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition-colors hover:text-bone-dim"
+              className={linkClass}
             >
               {label}
             </a>
           ))}
+          <CookieSettingsButton
+            data-reveal-item
+            style={{ "--reveal-delay": `${LEGAL.length * 0.05}s` } as React.CSSProperties}
+            className={linkClass}
+          />
         </RevealGroup>
       </div>
 
       {/* Meta-Zeile: Copyright + Back-to-top */}
       <div className="mt-16 flex flex-col gap-4 border-t border-line pt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-bone-dim sm:flex-row sm:items-center sm:justify-between">
-        <span>© {year} [STUDIO_NAME]. Alle Rechte vorbehalten.</span>
+        <span>© {year} {STUDIO.name}. Alle Rechte vorbehalten.</span>
         <a href="#top" className="nav-link w-fit transition-colors hover:text-bone">
           Nach oben ↑
         </a>

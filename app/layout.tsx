@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Spline_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { CookieConsent } from "@/components/consent/CookieConsent";
+import { STUDIO } from "@/lib/studio";
 
 // Display/Body: Bricolage Grotesque – editorial-grotesk mit eigenem Charakter
 // (bewusst nicht Space Grotesk; das stand auf der Reflex-Reject-Liste).
@@ -19,10 +21,9 @@ const mono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
-  // [STUDIO_NAME] / [CLAIM] als Platzhalter – später durch Branding ersetzen
-  title: "[STUDIO_NAME] — Bespoke Tattoo Atelier",
-  description:
-    "[STUDIO_NAME]: zeitgenössisches Tattoo-Atelier in [STADT]. Custom Work, kuratiert und ohne Kompromisse.",
+  // Beispieldaten aus @/lib/studio – später durch echtes Branding ersetzen.
+  title: `${STUDIO.name} — Bespoke Tattoo Atelier`,
+  description: `${STUDIO.name}: zeitgenössisches Tattoo-Atelier in ${STUDIO.city}. Custom Work, kuratiert und ohne Kompromisse.`,
 };
 
 export default function RootLayout({
@@ -36,6 +37,8 @@ export default function RootLayout({
         <SmoothScroll>{children}</SmoothScroll>
         {/* Cinematic-Film-Grain über der ganzen Seite (rein dekorativ). */}
         <div className="grain" aria-hidden />
+        {/* Cookie-Consent (DSGVO/TTDSG) – global, über allen Sektionen. */}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Reveal, RevealGroup } from "@/components/anim/Reveal";
+import { STUDIO } from "@/lib/studio";
 
 type Step = { no: string; title: string; text: string; src: string };
 
@@ -11,7 +12,7 @@ const STEPS: Step[] = [
   { no: "01", title: "Anfrage", text: "Schick uns deine Idee, Referenzbilder & Wunsch-Körperstelle über das Formular.", src: "/process/step-1.jpg" },
   { no: "02", title: "Beratung", text: "Kostenloses Beratungsgespräch – vor Ort oder per Video. Wir besprechen Design, Größe, Platzierung & Preis.", src: "/process/step-2.jpg" },
   { no: "03", title: "Design", text: "Dein Künstler erstellt ein individuelles Design. Anpassungen inklusive, bis du 100 % zufrieden bist.", src: "/process/step-3.jpg" },
-  { no: "04", title: "Termin & Anzahlung", text: "Wir buchen deinen Termin. Eine Anzahlung von [BETRAG] sichert den Slot – wird mit dem Endpreis verrechnet.", src: "/process/step-4.jpg" },
+  { no: "04", title: "Termin & Anzahlung", text: `Wir buchen deinen Termin. Eine Anzahlung von ${STUDIO.deposit} sichert den Slot – wird mit dem Endpreis verrechnet.`, src: "/process/step-4.jpg" },
   { no: "05", title: "Dein Tag", text: "Entspannt ankommen, Kunst empfangen. Wir nehmen uns die Zeit, die dein Tattoo verdient.", src: "/process/step-5.jpg" },
   { no: "06", title: "Aftercare", text: "Du bekommst eine ausführliche Pflege-Anleitung – und wir stehen bei Fragen weiter zur Seite.", src: "/process/step-6.jpg" },
 ];

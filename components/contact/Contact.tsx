@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { submitInquiry, type InquiryState } from "@/app/actions/inquiry";
 import { Reveal, RevealGroup } from "@/components/anim/Reveal";
+import { STUDIO } from "@/lib/studio";
 import {
   ARTIST_OPTIONS,
   Consent,
@@ -40,10 +41,10 @@ export function Contact() {
           className="space-y-5 font-mono text-[12px] uppercase tracking-[0.15em] text-bone-dim"
         >
           {[
-            ["Adresse", "[ADRESSE]"],
-            ["Öffnung", "[ÖFFNUNGSZEITEN]"],
-            ["Instagram", "[@HANDLE]"],
-            ["E-Mail", "[EMAIL]"],
+            ["Adresse", STUDIO.address.full],
+            ["Öffnung", STUDIO.hours],
+            ["Instagram", STUDIO.instagram.handle],
+            ["E-Mail", STUDIO.email],
           ].map(([k, v], idx) => (
             <div
               key={k}
@@ -59,9 +60,16 @@ export function Contact() {
         <Reveal
           variant="up"
           delay={0.1}
-          className="flex h-48 items-center justify-center border border-line bg-surface font-mono text-[10px] uppercase tracking-[0.2em] text-bone-dim"
+          className="h-48 overflow-hidden border border-line bg-surface"
         >
-          [ Karte / Google Maps ]
+          <iframe
+            src={STUDIO.maps.embed}
+            title={`Karte: ${STUDIO.name}, ${STUDIO.address.full}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-full w-full grayscale"
+            style={{ border: 0, filter: "grayscale(1) invert(0.92) contrast(0.9)" }}
+          />
         </Reveal>
       </div>
 

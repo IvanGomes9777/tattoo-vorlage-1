@@ -11,6 +11,7 @@ import {
   SubmitButton,
   Textarea,
 } from "./formui";
+import { STUDIO } from "@/lib/studio";
 
 /** B — Centered Editorial: schmales, zentriertes Ein-Spalten-Formular, viel Raum. */
 export function BookingCentered() {
@@ -26,7 +27,7 @@ export function BookingCentered() {
           </h2>
           <p className="mx-auto mt-5 max-w-[42ch] text-sm leading-relaxed text-bone-dim">
             Wir melden uns persönlich für ein kostenloses Beratungsgespräch.
-            [ADRESSE] · [ÖFFNUNGSZEITEN] · [@HANDLE]
+            {" "}{STUDIO.address.full} · {STUDIO.hours} · {STUDIO.instagram.handle}
           </p>
         </div>
 
