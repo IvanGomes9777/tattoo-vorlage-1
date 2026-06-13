@@ -42,11 +42,12 @@ export function Select({
   );
 }
 
-export function Consent({ text }: { text: string }) {
+export function Consent({ text, name }: { text: string; name?: string }) {
   return (
     <label className="flex cursor-pointer items-start gap-3 text-sm text-bone-dim">
       <input
         type="checkbox"
+        name={name}
         className="mt-1 h-4 w-4 shrink-0 accent-bone"
         required
       />
