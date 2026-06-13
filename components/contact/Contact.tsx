@@ -27,7 +27,7 @@ export function Contact() {
       <div className="flex flex-col gap-10">
         <div>
           <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
-            03 — Kontakt
+            Kontakt
           </p>
           <h2 className="font-display text-[clamp(2.4rem,6vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-bone">
             Lass uns reden

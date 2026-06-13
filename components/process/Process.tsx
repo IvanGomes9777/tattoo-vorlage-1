@@ -25,7 +25,7 @@ export function Process() {
       className="flex min-h-screen flex-col justify-center border-t border-line bg-obsidian px-6 py-16 md:px-10"
     >
       <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
-        02.5 — Ablauf
+        Ablauf
       </p>
       <h2 className="mb-10 font-display text-[clamp(2.2rem,5.5vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.02em] text-bone">
         Von der Idee zum Tattoo

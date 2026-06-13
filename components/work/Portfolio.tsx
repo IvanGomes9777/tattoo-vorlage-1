@@ -86,7 +86,7 @@ export function Portfolio() {
       {/* Text-Layer */}
       <div key={`t${i}`} className="fade-in absolute inset-0 flex flex-col justify-between px-6 py-8 md:px-12 md:py-12">
         <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.3em] text-bone-dim">
-          <span>01 — Portfolio</span>
+          <span>Portfolio</span>
           <span>
             {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
           </span>

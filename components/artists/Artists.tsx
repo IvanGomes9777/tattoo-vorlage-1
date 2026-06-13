@@ -35,7 +35,7 @@ export function Artists() {
       <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
         <div>
           <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
-            02 — Artists
+            Artists
           </p>
           <h2 className="max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-medium leading-[0.92] tracking-[-0.02em] text-bone">
             Die Künstler
