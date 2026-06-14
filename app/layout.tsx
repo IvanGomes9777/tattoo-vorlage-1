@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Spline_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { CookieConsent } from "@/components/consent/CookieConsent";
+import { STUDIO } from "@/lib/studio";
 
-const spaceGrotesk = Space_Grotesk({
+// Display/Body: Bricolage Grotesque – editorial-grotesk mit eigenem Charakter
+// (bewusst nicht Space Grotesk; das stand auf der Reflex-Reject-Liste).
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-display-src",
   display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
+// Labels/Meta: Spline Sans Mono – hält die Grotesk+Mono-Kontrastachse.
+const mono = Spline_Sans_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono-src",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  // [STUDIO_NAME] / [CLAIM] als Platzhalter – später durch Branding ersetzen
-  title: "[STUDIO_NAME] — Bespoke Tattoo Atelier",
-  description:
-    "[STUDIO_NAME]: zeitgenössisches Tattoo-Atelier in [STADT]. Custom Work, kuratiert und ohne Kompromisse.",
+  // Beispieldaten aus @/lib/studio – später durch echtes Branding ersetzen.
+  title: `${STUDIO.name} — Bespoke Tattoo Atelier`,
+  description: `${STUDIO.name}: zeitgenössisches Tattoo-Atelier in ${STUDIO.city}. Custom Work, kuratiert und ohne Kompromisse.`,
 };
 
 export default function RootLayout({
@@ -28,9 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+    <html lang="de" className={`${display.variable} ${mono.variable}`}>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        {/* Cinematic-Film-Grain über der ganzen Seite (rein dekorativ). */}
+        <div className="grain" aria-hidden />
+        {/* Cookie-Consent (DSGVO/TTDSG) – global, über allen Sektionen. */}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Reveal } from "@/components/anim/Reveal";
 
 type Artist = {
   src: string;
@@ -33,37 +34,51 @@ export function Artists() {
       className="relative flex flex-col border-t border-line bg-obsidian px-6 py-14 md:h-screen md:overflow-hidden md:px-10 md:py-16"
     >
       <div className="mb-8 flex flex-col justify-between gap-6 md:mb-10 md:flex-row md:items-end">
-        <div>
-          <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.35em] text-bone-dim">
-            02 — Artists
-          </p>
+        <Reveal variant="up">
           <h2 className="max-w-[16ch] font-display text-[clamp(2.4rem,6vw,5rem)] font-medium leading-[0.92] tracking-[-0.02em] text-bone">
             Die Künstler
           </h2>
-        </div>
-        <p className="max-w-[34ch] text-sm leading-relaxed text-bone-dim md:text-right">
+        </Reveal>
+        <Reveal
+          variant="up"
+          delay={0.12}
+          as="p"
+          className="max-w-[34ch] text-sm leading-relaxed text-bone-dim md:text-right"
+        >
           Kein Artist arbeitet wie der andere. Wähle den Stil — und den Menschen,
           dem du vertraust.
-        </p>
+        </Reveal>
       </div>
 
       {/* Split Duo */}
       <div className="flex flex-col gap-3 md:min-h-0 md:flex-1 md:flex-row">
-        {ARTISTS.map((a) => (
+        {ARTISTS.map((a, idx) => (
           <article
             key={a.name}
             className="group relative h-[62vh] overflow-hidden transition-[flex] duration-700 ease-[var(--ease-quart)] md:h-auto md:flex-1 md:hover:flex-[1.7]"
           >
-            <Image
-              src={a.src}
-              alt={`${a.name} — ${a.specialty}`}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover object-top"
-            />
+            {/* Bild-Reveal (Scale-/Clip-Settle) liegt auf einem eigenen Layer,
+                damit die Hover-Expand-Transition der Karte unberührt bleibt. */}
+            <Reveal
+              variant="image"
+              delay={idx * 0.14}
+              className="absolute inset-0"
+            >
+              <Image
+                src={a.src}
+                alt={`${a.name} — ${a.specialty}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] md:group-hover:scale-[1.06]"
+              />
+            </Reveal>
             <div className="absolute inset-0 bg-obsidian/45 transition-colors duration-500 group-hover:bg-obsidian/25" />
 
-            <div className="absolute inset-x-0 bottom-0 p-7 md:p-10">
+            <Reveal
+              variant="up"
+              delay={idx * 0.14 + 0.12}
+              className="absolute inset-x-0 bottom-0 p-7 md:p-10"
+            >
               <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bone-dim">
                 {a.specialty}
               </p>
@@ -77,9 +92,12 @@ export function Artists() {
                 href="#contact"
                 className="mt-5 inline-block max-h-10 overflow-hidden border-b border-bone pb-1 font-mono text-[11px] uppercase tracking-[0.2em] text-bone opacity-100 transition-all duration-500 md:max-h-0 md:opacity-0 md:group-hover:max-h-10 md:group-hover:opacity-100"
               >
-                Bei {a.name} anfragen →
+                Bei {a.name} anfragen{" "}
+                <span className="inline-block transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:translate-x-1">
+                  →
+                </span>
               </a>
-            </div>
+            </Reveal>
           </article>
         ))}
       </div>

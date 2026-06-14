@@ -1,3 +1,5 @@
+import { STUDIO } from "@/lib/studio";
+
 export type Step = { no: string; title: string; text: string };
 
 export const STEPS: Step[] = [
@@ -19,7 +21,7 @@ export const STEPS: Step[] = [
   {
     no: "04",
     title: "Termin & Anzahlung",
-    text: "Wir buchen deinen Termin. Eine Anzahlung von [BETRAG] sichert den Slot – wird mit dem Endpreis verrechnet.",
+    text: `Wir buchen deinen Termin. Eine Anzahlung von ${STUDIO.deposit} sichert den Slot – wird mit dem Endpreis verrechnet.`,
   },
   {
     no: "05",
