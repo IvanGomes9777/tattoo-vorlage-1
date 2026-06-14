@@ -33,7 +33,7 @@ export default function AgbPage() {
 
       <h2>§ 4 Stornierung & Terminverschiebung</h2>
       <p>
-        Termine können bis [FRIST, z. B. 48 Stunden] vor dem vereinbarten Zeitpunkt
+        Termine können bis 48 Stunden vor dem vereinbarten Zeitpunkt
         kostenfrei verschoben werden. Bei späterer Absage oder Nichterscheinen verfällt
         die Anzahlung als Aufwandsentschädigung.
       </p>
