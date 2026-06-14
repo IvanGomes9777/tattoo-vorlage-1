@@ -23,6 +23,33 @@ function isEmail(v: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254;
 }
 
+/* Maximale Feldlängen – begrenzen Last, Log-Größe und Missbrauch. */
+const LIMITS = {
+  name: 100,
+  email: 254,
+  phone: 40,
+  artist: 80,
+  style: 80,
+  place: 120,
+  idea: 5_000,
+} as const;
+
+/** Liest ein Feld, trimmt es und kappt es auf die erlaubte Maximallänge. */
+function readField(formData: FormData, key: keyof typeof LIMITS): string {
+  const raw = formData.get(key);
+  if (typeof raw !== "string") return "";
+  return raw.trim().slice(0, LIMITS[key]);
+}
+
+/**
+ * Verhindert E-Mail-Header-Injection: Zeilenumbrüche in einzeiligen Feldern
+ * (Name, Betreff o. Ä.) würden sonst beim späteren Mailversand das Einschleusen
+ * fremder Header/Empfänger erlauben.
+ */
+function hasHeaderInjection(v: string): boolean {
+  return /[\r\n]/.test(v);
+}
+
 export async function submitInquiry(
   _prev: InquiryState,
   formData: FormData
@@ -42,24 +69,38 @@ export async function submitInquiry(
     };
   }
 
-  // 3. Validierung
-  const name = (formData.get("name") as string)?.trim() ?? "";
-  const email = (formData.get("email") as string)?.trim() ?? "";
-  const idea = (formData.get("idea") as string)?.trim() ?? "";
+  // 3. Validierung (Eingaben werden getrimmt und längenbegrenzt eingelesen)
+  const name = readField(formData, "name");
+  const email = readField(formData, "email");
+  const idea = readField(formData, "idea");
   const age = formData.get("age");
   const privacy = formData.get("privacy");
 
   if (name.length < 2) return { status: "error", message: "Bitte gib deinen Namen an." };
   if (!isEmail(email)) return { status: "error", message: "Bitte gib eine gültige E-Mail an." };
+  if (hasHeaderInjection(name) || hasHeaderInjection(email)) {
+    return { status: "error", message: "Ungültige Eingabe." };
+  }
   if (!idea) return { status: "error", message: "Bitte beschreib kurz deine Idee." };
   if (!age) return { status: "error", message: "Bitte bestätige, dass du mindestens 18 bist." };
   if (!privacy) return { status: "error", message: "Bitte stimme der Datenschutzerklärung zu." };
+
+  // Weitere optionale Felder ebenfalls bereinigt einlesen (für späteren Versand).
+  const phone = readField(formData, "phone");
+  const artist = readField(formData, "artist");
+  const style = readField(formData, "style");
+  const place = readField(formData, "place");
+  void phone; void artist; void style; void place; // bis Versand aktiv ist
 
   // 4. Versand
   // TODO: E-Mail-Versand integrieren (z. B. Resend/SMTP). Erst aktiv, wenn
   //       die entsprechenden Provider-Keys als Umgebungsvariablen gesetzt sind.
   //       Bis dahin gilt die Anfrage als angenommen (Validierung bestanden).
-  console.info("[Inquiry]", { name, email, ip });
+  //       WICHTIG: Eingaben (name/email/idea) niemals ungeprüft in E-Mail-Header
+  //       schreiben – dafür ist hasHeaderInjection() oben da.
+  // Datenschutz: keine personenbezogenen Daten (Name/E-Mail/IP) im Klartext
+  // loggen. Nur ein neutraler Hinweis zur Funktionskontrolle.
+  console.info("[Inquiry] Neue Anfrage eingegangen.");
 
   return {
     status: "success",
