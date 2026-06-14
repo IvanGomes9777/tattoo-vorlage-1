@@ -1,23 +1,12 @@
 "use server";
 
 import { headers } from "next/headers";
+import { isRateLimited } from "@/lib/ratelimit";
 
 export type InquiryState = {
   status: "idle" | "success" | "error";
   message?: string;
 };
-
-/* Einfaches In-Memory-Rate-Limit (pro Server-Instanz). Für Produktion ggf.
-   durch Vercel KV / Upstash ersetzen – siehe Security-Guide. */
-const hits = new Map<string, number[]>();
-function rateLimited(ip: string, max = 5, windowMs = 60_000): boolean {
-  const now = Date.now();
-  const list = (hits.get(ip) ?? []).filter((t) => now - t < windowMs);
-  if (list.length >= max) return true;
-  list.push(now);
-  hits.set(ip, list);
-  return false;
-}
 
 function isEmail(v: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254;
@@ -59,10 +48,10 @@ export async function submitInquiry(
     return { status: "error", message: "Ungültige Anfrage." };
   }
 
-  // 2. Rate-Limit pro IP
+  // 2. Rate-Limit pro IP (persistent über Upstash/Vercel KV, sonst In-Memory)
   const ip =
     (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  if (rateLimited(ip)) {
+  if (await isRateLimited(ip)) {
     return {
       status: "error",
       message: "Zu viele Anfragen. Bitte versuch es später erneut.",
