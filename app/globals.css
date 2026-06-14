@@ -100,6 +100,59 @@ h3 {
   animation: fadeIn 0.6s var(--ease-quart);
 }
 
+/* Rechtsseiten (Impressum/Datenschutz/AGB/Cookies): schlichte, lesbare Prosa
+   in der Marken-Typografie. Kein Tailwind-Typography-Plugin – bewusst minimal. */
+.legal {
+  color: var(--color-bone-dim);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.legal h2 {
+  font-family: var(--font-display);
+  color: var(--color-bone);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 3rem 0 1rem;
+}
+.legal h2:first-of-type {
+  margin-top: 0;
+}
+.legal h3 {
+  font-family: var(--font-mono);
+  color: var(--color-bone);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 2rem 0 0.75rem;
+}
+.legal p {
+  margin: 0 0 1rem;
+  max-width: 70ch;
+}
+.legal ul {
+  margin: 0 0 1rem;
+  padding-left: 1.1rem;
+  max-width: 70ch;
+}
+.legal li {
+  margin: 0 0 0.4rem;
+  list-style: disc;
+}
+.legal a {
+  color: var(--color-bone);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.legal strong {
+  color: var(--color-bone);
+  font-weight: 600;
+}
+.legal address {
+  font-style: normal;
+}
+
 /* Scroll-Reveal beim Eintreten in den Viewport.
    Die Reveal-Komponente (IntersectionObserver) setzt `data-shown`, sobald das
    Element sichtbar wird. Unter reduced-motion rendert die Komponente sofort
