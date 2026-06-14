@@ -14,7 +14,7 @@ export default function DatenschutzPage() {
       <p>
         Verantwortlich für die Datenverarbeitung auf dieser Website ist:
         <br />
-        <strong>{STUDIO.name}</strong>, Inhaber: [VOR- UND NACHNAME]
+        <strong>{STUDIO.name}</strong>, Inhaber: Max Mustermann
         <br />
         {STUDIO.address.full}
         <br />
@@ -31,11 +31,11 @@ export default function DatenschutzPage() {
 
       <h2>3. Hosting & Server-Logfiles</h2>
       <p>
-        Diese Website wird bei einem Dienstleister ([HOSTING-ANBIETER, z. B. Vercel
-        Inc.]) gehostet. Beim Aufruf erfasst der Server automatisch Informationen in
-        Server-Logfiles (IP-Adresse, Datum/Uhrzeit, abgerufene Seite, Browser,
-        Betriebssystem). Dies dient dem sicheren, stabilen Betrieb (berechtigtes
-        Interesse, Art. 6 Abs. 1 lit. f DSGVO).
+        Diese Website wird bei der Vercel Inc., 340 S Lemon Avenue #4133, Walnut,
+        CA 91789, USA, gehostet. Beim Aufruf erfasst der Server automatisch
+        Informationen in Server-Logfiles (IP-Adresse, Datum/Uhrzeit, abgerufene
+        Seite, Browser, Betriebssystem). Dies dient dem sicheren, stabilen Betrieb
+        (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO).
       </p>
 
       <h2>4. Kontaktformular & Anfragen</h2>

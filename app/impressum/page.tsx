@@ -14,7 +14,7 @@ export default function ImpressumPage() {
       <p>
         <strong>{STUDIO.name}</strong>
         <br />
-        Inhaber: [VOR- UND NACHNAME]
+        Inhaber: Max Mustermann
         <br />
         {STUDIO.address.street}
         <br />
@@ -37,12 +37,12 @@ export default function ImpressumPage() {
       <p>
         Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
         <br />
-        [USt-IdNr. / ggf. „Kleinunternehmer gemäß § 19 UStG"]
+        [USt-IdNr. — wird nachgereicht]
       </p>
 
       <h2>Redaktionell verantwortlich</h2>
       <p>
-        [VOR- UND NACHNAME]
+        Max Mustermann
         <br />
         {STUDIO.address.street}, {STUDIO.address.zip} {STUDIO.address.city}
       </p>
